@@ -1,3 +1,4 @@
+package com.newlecture.javaweb.entity;
 
 
 import java.util.Date;

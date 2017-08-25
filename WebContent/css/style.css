@@ -1,0 +1,241 @@
+@charset "UTF-8";
+
+a {
+	color: #979797;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+/* --------------------------------------------------------- */
+.hidden {
+	display: none;
+}
+
+.clearfix::after {
+	/* content: "막내라요"; */
+	content: "";
+	clear: left;
+	display: block;
+	/*    clear: both;
+    display: table; */
+}
+
+body {
+	font-family: 돋움, Arial, sans-serif;
+	font-size: 11px;
+	color: #979797;
+}
+
+/* 버튼스타일---------------------------------------------------- */
+.btn {
+	display: inline-block;
+	border: 0px;
+	cursor: pointer;
+	overflow: hidden;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	padding: 3px 8px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.btn-default {
+	/* background-color:#759d2a; */
+	background: -webkit-radial-gradient(center, ellipse cover, #9dcf40 0%, #698c26 100%);
+	border-color: #608618;
+}
+
+.btn-default:hover {
+	text-decoration: none;
+	background: -webkit-gradient(radial, 200 -25, 0, 364 -183, 461, from(#14F200),
+		to(#008028)) /* background-color:#759d2a;
+   border-color: #608618; */
+}
+
+.btn-img {
+	display: inline-block;
+	border: 0px;
+	cursor: pointer;
+	overflow: hidden;
+	background-image: none;
+	border: 1px solid transparent;
+	text-indent: -999px;
+}
+
+.btn-search {
+	width: 31px;
+	height: 25px;
+	background: url("../images/btn-zoom.png") no-repeat;
+	border-left: 1px solid #8CBA34;
+}
+
+.btn-cancel {
+	width: 64px;
+	height: 23px;
+	background: url("../images/btn-cancel.png") no-repeat;
+}
+
+/* list 목록스타일--------------------------------------------------- */
+.hr-list {
+	display: inline-block;
+}
+
+.hr-list ul {
+	overflow: auto;
+}
+
+.hr-list>ul li {
+	float: left;
+}
+
+.hr-list>ul li:first-child {
+	padding-left: 0px;
+	background: none;
+}
+
+/*--------------------- 서치폼------------------- */
+#search-form {
+
+	width: 308px;
+	height: 25px;
+	border: 5px solid #8cba34;
+	left: 468px;
+	top: 21px;
+}
+
+
+/* --------------------메뉴---------------------------------------------- */
+#header {
+	height: 70px;
+}
+ #header > .content-container{
+	position: relative;
+} 
+#header > .content-container > section > *, #logo{
+	position:absolute;
+}
+
+#logo{
+	display: inline-block;
+	left: 0px;
+	top: 23px;	
+}
+#logo img{
+vertical-align: middle;
+	}
+
+
+.main-menu {
+top:27px;
+left: 200px;
+
+	}
+	#customer-menu{
+	right:0px;
+	top:40px;
+	}
+	
+	.member-menu{
+	top:20px;
+	right: 0px;
+	
+}
+	 
+.main-menu > ul li {
+	padding-left: 24px;
+	background: url("../images/bg-main-menu-vsp.png") no-repeat 12px center;
+
+	}
+
+.main-menu li a {
+	font-family: 맑은 고딕, 고딕, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.main-menu li:last-child a {
+	color: #ff6a00;
+}
+
+
+
+.member-menu>ul li {
+	padding-left: 9px;
+	background: url("../images/bg-member-menu-sp.png") no-repeat 4px center;
+}
+
+.member-menu li a {
+	font-family: 맑은 고딕, 고딕, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: #979797;
+}
+
+#visual {
+	border-top: solid 3px #8cba34;
+	background: #313131 url("../images/bg-visual.png") center;
+	height: 171px;
+}
+/*-----------------------------------------------------------------------*/
+#body {
+	border-top: solid 5px #8cba34;
+	margin-top: 1PX;
+	min-height: 300px;
+}
+
+#aside {
+	float: left;
+	min-height: inherit;
+	width: 205px;
+	background: url("../images/bg-aside-title.png") no-repeat left top;
+
+	/* background-size: cover;
+background-attachment: local; */
+}
+
+#visual .content-container {
+	background: #313131 url("../images/customer/visual.png") no-repeat
+		center center;
+}
+
+#body .content-container {
+	background: url("../images/bg-body.png") repeat-y left top;
+	position: relative;
+	
+}
+
+#main {
+	float: left;
+	min-height: inherit;
+	width: 755px;
+	padding-left: 35px;
+	padding-top: 45px;
+	box-sizing: border-box;
+}
+
+#footer {
+	background: #313131;
+	height: 100px;
+}
+
+.content-container {
+	margin: auto;
+	min-height: inherit;
+	height: inherit;
+	width: 960px;
+}
+
+/* #floating{
+   
+   position: relative;
+   width: 100%;
+   height: 300px;
+   background: pink;
+   top:10px;
+   
+   bottom: 0px;      
+} */

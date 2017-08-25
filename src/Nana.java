@@ -1,107 +1,106 @@
-import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+import com.newlecture.javaweb.entity.Notice;
+
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/notice")
-public class Nana extends HttpServlet {
-	public void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+@WebServlet("/hello")
 
-		// utf8 ÀĞ¾î¾ß ÇÏ´Ï º¸³¾¶§µµ utf8·Î º¸³»¾ßÇÔ
-		response.setCharacterEncoding("utf-8");
-		// ºê¶ó¿ìÀú¿¡°Ô htmlÆÄÀÏÀÌ¶ó´Â°É ¾Ë·ÁÁÜ ¼­ºí¸´ ¹Ù·Î ¾Æ·¡
-		response.setContentType("text/html; chatset=utf-8");
-
-		PrintWriter out = response.getWriter();
-		// OutputStream os = response.getOutputStream();
-		// PrintStream out = new PrintStream(os);
-
-		String title = request.getParameter("title");
-		System.out.println(title);
-		List<Notice> list = null;
-		String sql = "SELECT * FROM Notice where title like ?";
-		// Äõ¸®°¡ º¹ÀâÇØÁö¸é ³Ö±â°¡ Èûµå´Ï ÀÏ´Ü ?·Î ³Ö°í ¾Æ·¡¿¡¼­ Ã³¸®ÇÔ
-
-		String url = "jdbc:mysql://211.238.142.247/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
-
-		// JDBC µå¶óÀÌ¹ö ·Îµå
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-
-			// ¿¬°á / ÀÎÁõ
-			Connection con = DriverManager.getConnection(url, "sist", "cclass");
-
-			// ½ÇÇà
-			// Statement st = con.createStatement();
-			// PreparedStatement´Â ¹Ì¸® sqlÀ» ³Ö´Â°ÍÀÌ¹Ç·Î ¾Æ·¡¿¡¼­ sqlÀ» »©Áà¾ßÇÔ
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setString(1, "%" + title + "%");
-
-			// °á°ú °¡Á®¿À±â
-			// ResultSet rs = st.executeQuery(sql);
-			ResultSet rs = st.executeQuery();
-
-			// Model
-			list = new ArrayList<>();
-
-			// °á°ú »ç¿ëÇÏ±â
-			while (rs.next()) {
-				Notice n = new Notice();
-				n.setId(rs.getString("ID"));
-				n.setTitle(rs.getString("TITLE"));
-				// ..
-
-				list.add(n);
-			}
-			rs.close();
-			st.close();
-			con.close();
-
-			/* out.println(list.get(0).getTitle()); */
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// --------------view---------------
-
-		
-		//°Ë»öÀ»ÇÏ°í µÚ·Î °¡±â ¾øÀÌ ¶Ç °Ë»öÀ» ÇÏ±â À§ÇØ
-		//htmlÀ» ÀÚ¹Ù¿¡¼­ Ç¥ÇöÀ» Çß´Âµ¥ ³Ñ³ª ºÒÆíÇÑ°Í
-		out.println("<!DOCTYPE html>");
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<meta charset=\"UTF-8\">");
-		out.println("	<title>Insert title here</title>");
-		out.println("</head>");
-		out.println("	<body>");
-		out.println("	<form action=\"notice\" method=\"get\">");
-		out.println("	<label>°Ë»ö¾î</label>");
-		out.println("	<input type=\"text\" name=\"title\">");
-		out.println("	<input type=\"submit\">");
-		out.println("</form>");			
+public class Nana extends HttpServlet{
 	
+   public void service(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException
+   
+   {
+	  response.setCharacterEncoding("UTF-8");				//ì›¹ì—ì„œ ì½ì„ë•Œ utf-8ë¡œ ì½ìŒ
+	  response.setContentType("text/html; chatset=UTF-8"); 	//ë³´ë‚¼ë•Œ utf-8ë¡œ ë³´ëƒ„
+      
+	  PrintWriter out = response.getWriter();		//ë¬¸ì ë‹¨ìœ„ì— íŠ¹í™”ë˜ ìˆëŠ” ê²ƒ
+	  /*OutputStream os = response.getOutputStream(); //ë°”ì´íŠ¸ë‹¨ìœ„ì— íŠ¹í™”ëœ ê²ƒ
+
+      PrintStream out= new PrintStream(os);*/
+	  
+	  String title = request.getParameter("title");
+	  System.out.println(title);
+ 
+	  //----------------------------------------------------------------
+	  List<Notice> list = null;
+	  
+      String sql = "SELECT *FROM Notice where title like ?";
+
+      String url = "jdbc:mysql://211.238.142.247/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
+
+      // JDBC ë“œë¼ì´ë²„ ë¡œë“œ
+      try {
+			Class.forName("com.mysql.jdbc.Driver");
+	
+			// ì—°ê²° / ì¸ì¦
+		    Connection con = DriverManager.getConnection(url, "sist", "cclass");
+	
+		    // ì‹¤í–‰
+		    PreparedStatement st = con.prepareStatement(sql);
+		    st.setString(1, "%" + title + "%");
+		    
+		    // ê²°ê³¼ ê°€ì ¸ì˜¤ê¸°
+		    ResultSet rs = st.executeQuery();
+		    
+	
+		    // Model 
+		    list = new ArrayList<>();
+		      
+		    // ê²°ê³¼ ì‚¬ìš©í•˜ê¸°
+		    while (rs.next()) {
+		       Notice n = new Notice();
+		       n.setId(rs.getString("ID"));
+		       n.setTitle(rs.getString("TITLE"));
+		       //..
+		         
+		       list.add(n);
+		    }
+		      rs.close();
+		      st.close();
+		      con.close();
+		      
 		
-
-		// ÄÜ¼Ö¿¡ Ãâ·Â System.out.println(list.get(0).getTitle());
-		for (Notice n : list)
-			out.println(n.getTitle() + "<br/>");
-		out.println("	</body>");
-		out.println("	</html>");
-
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
+
+/*----------------------view---------------------------*/
+	  out.println("<html>");
+	  out.println("<head>");
+	  out.println("<meta charset=\"UTF-8\">");
+	  out.println("<title>Insert title here</title>");
+	  out.println("</head>");
+	  out.println("<body>");
+	  out.println("<form action=\"hello\">");
+	  out.println("<label>ê²€ìƒ‰ì–´</label>");
+	  out.println("<input type=\"text\" name=\"title\"/>");
+	  out.println("<input type=\"submit\"/>");
+	  out.println("</form>");
+	  	for(Notice n : list)
+	  	  out.println(n.getTitle() + "<br/>"); //í…ìŠ¤íŠ¸ê°€ ì•„ë‹ˆê¸° ë•Œë¬¸ì— ë”ì´ìƒ printlnì´ ì•„ë‹ˆë¼ webë¬¸ì„œì—ì„œ ì¤„ë°”ê¿€ ìˆ˜ ìˆëŠ” íƒœê·¸ë¥¼ ì´ìš©í•´ì•¼ í•œë‹¤.
+      	
+	  	out.println("</body>");
+	  	out.println("</html>");
+      
+      
+      
+
+      
+   }
 }
