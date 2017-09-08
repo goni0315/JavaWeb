@@ -36,16 +36,21 @@
          <nav id="member-menu" class="hr-list pad member-menu">   
             <h1 class="hidden">회원메뉴</h1>
             <ul>
-               <li><a href="">HOME</a></li>
-               <li><a href="">로그인</a></li>
-               <li><a href="">회원가입</a></li>
+               <li><a href="${path}/index">HOME</a></li>
+               <c:if test="${empty sessionScope.id}">
+               <li><a href="${path}/member/login">로그인</a></li>
+               </c:if>
+               <c:if test="${not empty sessionScope.id}">
+               <li><a href="${path}/member/logout">로그아웃</a></li>
+               </c:if>
+               <li><a href="${path}/member/agree">회원가입</a></li>
             </ul>   
          </nav>
             
          <nav id="customer-menu" class="hr-list">
             <h1 class="hidden">고객메뉴</h1>
             <ul>
-               <li><a href=""><img src="${path}/images/txt-mypage.png"  alt="마이페이지" /></a></li>
+               <li><a href="${path}/member/home"><img src="${path}/images/txt-mypage.png"  alt="마이페이지" /></a></li>
                <li><a href="${path}/customer/notice-list"><img src="${path}/images/txt-customer.png"  alt="고객센터" /></a></li>
             </ul>
          </nav>

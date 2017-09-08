@@ -2,3 +2,4 @@ eclipse.preferences.version=1
 encoding//WebContent/WEB-INF/views/customer/notice/list.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/notice.jsp=UTF-8
 encoding//src/Nana.java=UTF-8
+encoding//src/com/newlecture/javaweb/controller/admin/notice/NoticeRegController.java=UTF-8

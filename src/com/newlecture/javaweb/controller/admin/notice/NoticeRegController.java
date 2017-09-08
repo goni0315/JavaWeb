@@ -1,22 +1,20 @@
-package com.newlecture.javaweb.controller.customer;
+package com.newlecture.javaweb.controller.admin.notice;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/customer/notice-reg")
+@WebServlet("/admin/notice/reg")
 public class NoticeRegController extends HttpServlet {
 	
 	@Override
@@ -32,33 +30,33 @@ public class NoticeRegController extends HttpServlet {
 		
 				
 
-		// ì¿¼ë¦¬ê°? ë³µì¡?•´ì§?ë©? ?„£ê¸°ê? ?˜?“œ?‹ˆ ?¼?‹¨ ?ë¡? ?„£ê³? ?•„?˜?—?„œ ì²˜ë¦¬?•¨
+		// è‘ì‡°â”åª›? è¹‚ë“­ì˜Ÿ?ë¹ï§?ï§? ?ê½”æ¹²ê³Œ? ?ì˜’?ë±¶?ë•² ?ì”ª?ë–’ ?æ¿¡? ?ê½”æ€¨? ?ë¸˜?ì˜’?ë¿‰?ê½Œ ï§£ì„â”?ë¸¿
 
 		String url = "jdbc:mysql://211.238.142.247/newlecture?autoReconnect=true&amp;useSSL=false&characterEncoding=UTF-8";
 
-		// JDBC ?“œ?¼?´ë²? ë¡œë“œ
+		// JDBC ?ë±¶?ì”ª?ì” è¸°? æ¿¡ì’•ë±¶
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			// ?—°ê²? / ?¸ì¦?
+			// ?ë¿°å¯ƒ? / ?ì”¤ï§?
 			Connection con = DriverManager.getConnection(url, "sist", "cclass");
 
-			// ?‹¤?–‰
+			// ?ë–?ë»¾
 			// Statement st = con.createStatement();
-			// PreparedStatement?Š” ë¯¸ë¦¬ sql?„ ?„£?Š”ê²ƒì´ë¯?ë¡? ?•„?˜?—?„œ sql?„ ë¹¼ì¤˜?•¼?•¨
+			// PreparedStatement?ë’— èª˜ëªƒâ” sql?ì“£ ?ê½”?ë’—å¯ƒê»‹ì” èª˜?æ¿¡? ?ë¸˜?ì˜’?ë¿‰?ê½Œ sql?ì“£ é®ì‡±ì¨¾?ë¹?ë¸¿
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setString(1, title);
 			st.setString(2, content);
 			st.setString(3, "newlec");
 			
 
-			// ê²°ê³¼ ê°?? ¸?˜¤ê¸?
+			// å¯ƒê³Œë‚µ åª›??ì¡‡?ì‚¤æ¹²?
 			// ResultSet rs = st.executeQuery(sql);
 			int result = st.executeUpdate();
 			
-			//¾÷µ¥ÀÌÆ®µÈ ·Î¿ì °¹¼ö ¾Ë·ÁÁÜ
+			//ì—…ë°ì´íŠ¸ëœ ë¡œìš° ê°¯ìˆ˜ ì•Œë ¤ì¤Œ
 
-			// ê²°ê³¼ ?‚¬?š©?•˜ê¸?
+			// å¯ƒê³Œë‚µ ?ê¶—?ìŠœ?ë¸¯æ¹²?
 
 			
 			
@@ -78,22 +76,28 @@ public class NoticeRegController extends HttpServlet {
 		}
 		
 		/*response.sendRedirect("notice-detail?id="+id);*/
-		response.sendRedirect("notice-list");
+		response.sendRedirect("list");
 		
 	}
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
 	
+	@Override
+	   protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	         throws ServletException, IOException {
+	      
+	      response.setContentType("text/html; charset=UTF-8");
+	      response.setCharacterEncoding("UTF-8");
+	      PrintWriter out = response.getWriter();
+	      HttpSession session = request.getSession();
+	      if(session.getAttribute("id")==null)
+	         out.println("<script>alert('ë¡œê·¸ì¸ì´ í•„ìš”í•œ í˜ì´ì§€ì…ë‹ˆë‹¤.');location.href='../../member/login?returnURL=../admin/notice/reg';</script>");
+	      else 
+	         request.getRequestDispatcher("/WEB-INF/views/admin/notice/reg.jsp").forward(request, response);
 
-		// response.sendRedirect("notice.jsp"); //?ƒˆë¡œì¶œë°œí•˜?Š”ë°”ì—…
-		request.getRequestDispatcher("/WEB-INF/views/customer/notice/reg.jsp").forward(request, response); // ?´?–´?„œ
-																											// ì¶œë°œ?•˜?Š”
-																											// ë°©ë²•
-		// redirect
-		// forward
-	}
+	      
+
+	      // request.setAttribute("list", list); response.sendRedirect("notice.jsp");
+	      
+	   }
+	
 
 }

@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/reset.css" type="text/css" rel="stylesheet" />
-<link href="../css/style.css" type="text/css" rel="stylesheet" />
+<link href="../../css/reset.css" type="text/css" rel="stylesheet" />
+<link href="../../css/style.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
 
@@ -29,7 +29,7 @@
 <jsp:include page="../../customer/inc/aside.jsp"></jsp:include>
         
         <main id="main">
-         <h2 class="main title">공지사항</h2>
+         <h2>공지사항</h2>
          
          <div>
             <h3>경로</h3>
@@ -47,30 +47,38 @@
                <input type="text" name="title" />
                <input type="submit" />
             </form>
-         </div>         
+         </div>
          
-         <form method="post">
+         
          <table class="table">
          <tr>
          <th>제목</th>
-         <td colspan="3"><input name="title"></td>
+         <td colspan="3">${notice.title}</td>
          </tr>   
-         
+         <tr>
+         <th>작성일</th>
+         <td colspan="3">${notice.regDate}</td>
+         </tr>  
+         <tr>
+         <th>작성자</th>
+         <td>${notice.writerId}</td>
+         <th>조회수</th>
+         <td>${notice.hit}</td> 
+         </tr>   
          <tr>
          <th>첨부파일</th>
          <td colspan="3"></td>
          </tr>
          <tr>
-         <td colspan="4"><textarea name="content"></textarea></td>
+         <td colspan="4">${notice.content}</td>
          </tr>
          </table>
-         
-                 
          <div>
-         <input type="submit" class="btn btn-default" value="등록">
-         <a href="notice-list" class="btn btn-default">취소</a>                   
+         <a href="list" class="btn btn-default">목록</a>
+         <a href="edit?id=${notice.id}" class="btn btn-default">수정</a>
+         <a href="del" class="btn btn-default">삭제</a>
+         
          </div>
-       </form>
        
          <span class="btn btn-default" href="">글쓰기</span>
          <a class="btn-img btn-cancel" href="">취소</a>
@@ -83,3 +91,11 @@
    
 </body>
 </html>
+
+
+
+
+
+
+
+
